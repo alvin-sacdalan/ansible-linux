@@ -1,0 +1,39 @@
+https://azuredevopslabs.com/labs/vstsextend/ansible/
+
+1. create service principal account
+az account show
+az ad sp create-for-rbac --name ServicePrincipalName --role Contributor --scopes /subscriptions/<subscriptionid>
+
+2. create RG
+az group create --name AnsibleVM --location eastus
+
+3. Create the Azure virtual machine for Ansible.
+az vm create --resource-group AnsibleVM --name AnsibleVM --image OpenLogic:CentOS:7.7:latest --admin-username azureuser --admin-password <password>
+
+
+4. Open a Command prompt and enter the below command ssh azureuser@<PublicIP>
+
+5. Run the following commands to configure Ansible on Centos:
+ #!/bin/bash
+
+ # Update all packages that have available updates.
+ sudo yum update -y
+
+ # Install Python 3 and pip.
+ sudo yum install -y python3-pip
+
+ # Upgrade pip3.
+ sudo pip3 install --upgrade pip
+
+ # Install Ansible.
+ pip3 install "ansible==2.9.17"
+
+ # Install Ansible azure_rm module for interacting with Azure.
+ pip3 install ansible[azure]
+
+
+
+
+
+
+
